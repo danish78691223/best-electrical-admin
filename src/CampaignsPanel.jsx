@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Upload, Users, ShieldCheck, RefreshCw, Send, MessageSquare, MessageCircle, AlertTriangle, CheckCircle2, Clock3 } from 'lucide-react';
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/$/, '');
 
 function csvRows(text) {
   const rows = [];
@@ -100,8 +100,6 @@ export default function CampaignsPanel() {
     } catch (error) { setNotice(error.message); }
     finally { setBusy(false); }
   }
-
-  useEffect(() => { if (adminKey.length >= 24) load(); }, []);
 
   const visibleCustomers = useMemo(() => {
     const q = search.trim().toLowerCase();
